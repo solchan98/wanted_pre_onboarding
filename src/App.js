@@ -12,7 +12,7 @@ function App() {
     return (
         <div className="App">
             {/*<Toggle width={600} height={80} fontSize={24} />*/}
-            <Tab items={animals} />
+            <Tab items={animals} width={100} height={50} fontSize={14} />
         </div>
     );
 }
