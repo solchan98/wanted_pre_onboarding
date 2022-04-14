@@ -14,7 +14,7 @@ const Backboard = styled.div`
 const Circle = styled.div`
   transition: .2s;
   top: 4px;
-  left: ${state => state.leftMargin}px;
+  left: ${state => state.left}px;
   position: absolute;
   border-radius: ${state => state.width - 8}px;
   width: ${state => state.width / 2}px;
@@ -38,20 +38,20 @@ const Item = styled.div`
 export const Toggle = ({width, height, fontSize}) => {
 
     const [clicked, setClicked] = useState(0);
-    const [leftMargin, setLeftMargin] = useState(4);
+    const [left, setLeft] = useState(4);
 
     const click = useCallback((index) => {
         if (index === 0) {
-            setLeftMargin(width / 2 * index + 4);
+            setLeft(width / 2 * index + 4);
         } else {
-            setLeftMargin(width / 2 * index - 4);
+            setLeft(width / 2 * index - 4);
         }
         setClicked(index);
     }, []);
 
     return (
         <Backboard width={width} height={height}>
-            <Circle width={width} height={height} leftMargin={leftMargin}/>
+            <Circle width={width} height={height} left={left}/>
             <Item
                 width={width}
                 height={height}

@@ -42,7 +42,7 @@ export const Tab = ({ items, width = 50, height =  50, fontSize = 14}) => {
     const click = useCallback((id) => {
         setSlide(width * id);
         setSelect(id)
-    }, [slide, select])
+            }, [])
 
     return(
         <TabBar size={items.length} width={width} height={height}>
