@@ -10,7 +10,7 @@
 
 Backboard위에는 바로 Item 요소 2개가 display: flex로 나란히 자리합니다.
 
-선택된 Item으로 이동하는 Circle은 position: apsolute를 통해 left속성으로 이동됩니다.
+선택된 Item으로 이동하는 Circle은 position: absolute를 통해 left속성으로 이동됩니다.
 left는 선택된 Item의 index를 통해 분기하여 설정됩니다.
 
 
