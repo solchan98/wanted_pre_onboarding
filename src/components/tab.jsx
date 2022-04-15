@@ -2,14 +2,14 @@ import styled from "styled-components";
 import {useCallback, useState} from "react";
 
 const TabBar = styled.div`
-  max-width: ${state => state.size * state.width}px;
+  width: ${state => state.size * state.width}px;
   height: ${state => state.height - 5}px;
   background-color: gray;
 `;
 
 const Category = styled.div`
   display: flex;
-  max-width: ${state => state.size * 50}px;
+  width: ${state => state.size * 50}px;
   height: ${state => state.height - 5}px;
   background-color: #eceaea;
   overflow: hidden;
