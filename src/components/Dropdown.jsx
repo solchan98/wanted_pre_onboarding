@@ -14,6 +14,7 @@ const MainBox = styled.div`
   line-height: ${state => state.height}px;
   padding: 0 10px;
   box-sizing: border-box;
+  cursor: pointer;
 `;
 
 const ItemBox = styled.div`
@@ -68,8 +69,8 @@ export const Dropdown = ({width = 200, height = 30, fontSize = 16}) => {
         setInputTxt(e.target.value);
     }, [inputTxt])
 
-    const listRef = useRef();
-    useListOutsideMouse(listRef, {isOpen, setIsOpen}, setInputTxt);
+    const ref = useRef();
+    useListOutsideMouse(ref, {isOpen, setIsOpen}, setInputTxt);
 
     useEffect(() => {
         if(inputTxt === "") {
@@ -82,9 +83,9 @@ export const Dropdown = ({width = 200, height = 30, fontSize = 16}) => {
 
 
     return(
-        <>
+        <div style={{maxWidth: "200px"}} ref={ref}>
             <MainBox width={width} height={height} onClick={clickMainBox} >{selectItem}</MainBox>
-            <ItemBox width={width} ref={listRef} isOpen={isOpen}>
+            <ItemBox width={width} isOpen={isOpen}>
                 <Input height={height} onChange={onInputChange} placeholder="Search Symbol" value={inputTxt}/>
                 <Item height={height} fontSize={fontSize} onClick={() => changeSelectItem("ALL Symbols")}>All Symbols</Item>
                 {items.map((value, key) =>
@@ -95,6 +96,6 @@ export const Dropdown = ({width = 200, height = 30, fontSize = 16}) => {
                     onClick={() => changeSelectItem(value)}
                 >{value}</Item>)}
             </ItemBox>
-        </>
+        </div>
     );
 }
