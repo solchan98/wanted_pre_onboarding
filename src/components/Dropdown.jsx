@@ -76,7 +76,7 @@ export const Dropdown = ({width = 200, height = 30, fontSize = 16}) => {
         if(inputTxt === "") {
             setItems(ITEM_LIST);
         } else {
-            let strings = ITEM_LIST.filter(item => item.startsWith(inputTxt.toUpperCase()) || item.includes(inputTxt.toLowerCase()));
+            let strings = ITEM_LIST.filter(item => item.startsWith(inputTxt.toUpperCase()) || item.startsWith(inputTxt.toLowerCase()));
             setItems(strings);
         }
     }, [inputTxt])
