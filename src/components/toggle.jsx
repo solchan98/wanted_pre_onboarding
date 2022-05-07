@@ -36,7 +36,7 @@ const Item = styled.div`
   cursor: pointer;
 `;
 
-function Toggle ({width, height, fontSize}) {
+function Toggle ({width = 140, height = 40, fontSize = 18}) {
 
   const [clicked, setClicked] = useState(0);
   const [left, setLeft] = useState(4);
