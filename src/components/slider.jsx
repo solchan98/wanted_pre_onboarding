@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import {useCallback, useState} from "react";
+import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 const Bar = styled.div`
   position: relative;
@@ -10,7 +11,7 @@ const Bar = styled.div`
   background-color: gray;
   cursor: pointer;
   z-index: 1;
-`
+`;
 
 const Circle = styled.div`
   margin-top: -5px;
@@ -39,7 +40,7 @@ const ConstantBar = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const ConstantBtn = styled.div`;
   width: 50px;
@@ -61,77 +62,84 @@ const ColorBar = styled.div`
 `;
 
 const MoveCircle = styled.div`
-  margin-top: -7px;
+  margin-top: -6px;
   position: absolute;
-  width: 13px;
-  height: 13px;
+  width: 16px;
+  height: 16px;
   background-color: #cb2828;
   border-radius: 15px;
   cursor: pointer;
   z-index: 999;
   border: 4px solid gray;
-`
+`;
 
-export const Slider = ({width = 400, height = 50}) => {
+function Slider ({width = 400, height = 50}) {
 
-    const [curWidth, setCurWidth] = useState(width - width / 2);
-    const [moving, setMoving] = useState(false);
+  const [curWidth, setCurWidth] = useState(width - width / 2);
+  const [moving, setMoving] = useState(false);
 
-    const click = useCallback((index) => {
-        setCurWidth(index);
-    }, []);
+  const click = useCallback((index) => {
+    setCurWidth(index);
+  }, []);
 
-    const relativeClick = useCallback((e) => {
-        e.preventDefault();
-        const parentOffsetLeft = e.target.offsetParent.offsetLeft;
-        if(moving) {
-            setCurWidth(Math.max(0, Math.min(width, e.clientX - parentOffsetLeft - 10)));
-        }
-    }, [curWidth, moving])
+  const relativeClick = useCallback((e) => {
+    e.preventDefault();
+    const parentOffsetLeft = e.target.offsetParent.offsetLeft;
+    if(moving) {
+      setCurWidth(Math.max(0, Math.min(width, e.clientX - parentOffsetLeft - 10)));
+    }
+}, [moving, width, setCurWidth]);
 
-    const barClick = useCallback((e) => {
-        if(!moving) {
-            setCurWidth(Math.max(0, Math.min(width, e.nativeEvent.offsetX - 10)));
-        }
-    }, [moving])
+  const barClick = useCallback((e) => {
+    if(!moving) {
+      setCurWidth(Math.max(0, Math.min(width, e.nativeEvent.offsetX - 10)));
+    }
+  }, [moving, width]);
 
-    const startMoving = useCallback(() => {
-        setMoving(true);
-    }, [])
+  const startMoving = useCallback(() => {
+    setMoving(true);
+  }, []);
 
-    const changeMoving = useCallback(() => {
-        setMoving(false);
-    }, [])
+  const changeMoving = useCallback(() => {
+    setMoving(false);
+  }, []);
 
-    const constantBtnClick = useCallback((index) => {
-        setCurWidth(index);
-    }, [curWidth])
+  const constantBtnClick = useCallback((index) => {
+    setCurWidth(index);
+  }, []);
 
-    return(
-        <>
-            <Status width={width} height={height}>
-                {(curWidth / width * 100).toFixed(0)} %
-            </Status>
-            <Bar width={width} onMouseUp={(e) => barClick(e)}>
-                <ColorBar style={{ width: `${curWidth}px`}}/>
-                <MoveCircle style={{ left: `${curWidth}px`}}
-                    onMouseDown={startMoving}
-                    onMouseUp={changeMoving}
-                    onMouseOut={changeMoving}
-                    onMouseMove={(e) => relativeClick(e)}/>
-                <Circle width={width} height={height} onClick={() => click(0)} curWidth={curWidth} index={0} />
-                <Circle width={width} height={height} onClick={() => click(width / 4)} curWidth={curWidth} index={width / 4} />
-                <Circle width={width} height={height} onClick={() => click(width / 4 * 2)} curWidth={curWidth} index={width / 4 * 2} />
-                <Circle width={width} height={height} onClick={() => click(width / 4 * 3)} curWidth={curWidth} index={width / 4 * 3} />
-                <Circle width={width} height={height} onClick={() => click(width / 4 * 4)} curWidth={curWidth} index={width / 4 * 4} />
-            </Bar>
-            <ConstantBar width={width} height={height}>
-                <ConstantBtn onClick={() => constantBtnClick(4)} index={4}>1%</ConstantBtn>
-                <ConstantBtn style={{marginLeft: "-16px"}} onClick={() => constantBtnClick(width / 4)} index={width / 4}>25%</ConstantBtn>
-                <ConstantBtn onClick={() => constantBtnClick(width / 4 * 2)} index={width / 4 * 2}>50%</ConstantBtn>
-                <ConstantBtn style={{marginRight: "-16px"}} onClick={() => constantBtnClick(width / 4 * 3)} index={width / 4 * 3}>75%</ConstantBtn>
-                <ConstantBtn onClick={() => constantBtnClick(width / 4 * 4)} index={width / 4 * 4}>100%</ConstantBtn>
-            </ConstantBar>
-        </>
-    );
+  return(
+    <>
+      <Status width={width} height={height}>
+        {(curWidth / width * 100).toFixed(0)} %
+      </Status>
+      <Bar width={width} onMouseUp={(e) => barClick(e)}>
+        <ColorBar style={{ width: `${curWidth}px`}}/>
+        <MoveCircle style={{ left: `${curWidth}px`}}
+          onMouseDown={startMoving}
+          onMouseUp={changeMoving}
+          onMouseOut={changeMoving}
+          onMouseMove={(e) => relativeClick(e)}/>
+        <Circle width={width} height={height} onClick={() => click(0)} curWidth={curWidth} index={0} />
+        <Circle width={width} height={height} onClick={() => click(width / 4)} curWidth={curWidth} index={width / 4} />
+        <Circle width={width} height={height} onClick={() => click(width / 4 * 2)} curWidth={curWidth} index={width / 4 * 2} />
+        <Circle width={width} height={height} onClick={() => click(width / 4 * 3)} curWidth={curWidth} index={width / 4 * 3} />
+        <Circle width={width} height={height} onClick={() => click(width / 4 * 4)} curWidth={curWidth} index={width / 4 * 4} />
+      </Bar>
+      <ConstantBar width={width} height={height}>
+        <ConstantBtn onClick={() => constantBtnClick(4)} index={4}>1%</ConstantBtn>
+        <ConstantBtn style={{marginLeft: "-16px"}} onClick={() => constantBtnClick(width / 4)} index={width / 4}>25%</ConstantBtn>
+        <ConstantBtn onClick={() => constantBtnClick(width / 4 * 2)} index={width / 4 * 2}>50%</ConstantBtn>
+        <ConstantBtn style={{marginRight: "-16px"}} onClick={() => constantBtnClick(width / 4 * 3)} index={width / 4 * 3}>75%</ConstantBtn>
+        <ConstantBtn onClick={() => constantBtnClick(width / 4 * 4)} index={width / 4 * 4}>100%</ConstantBtn>
+      </ConstantBar>
+    </>
+  );
 }
+
+Slider.propTypes = {
+    width: PropTypes.number,
+    height: PropTypes.number,
+};
+
+export default Slider;
