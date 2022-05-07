@@ -7,10 +7,10 @@ import Toggle from './components/toggle';
 function App() {
   return (
     <div>
-      {/* <Dropdown />
+      <Dropdown />
       <Input />
       <Slider />
-      <Tab /> */}
+      <Tab />
       <Toggle />
     </div>
   );
