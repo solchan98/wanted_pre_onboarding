@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import {useCallback, useState} from "react";
+import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 const Backboard = styled.div`
   position: relative;
@@ -35,39 +36,47 @@ const Item = styled.div`
   cursor: pointer;
 `;
 
-export const Toggle = ({width, height, fontSize}) => {
+function Toggle ({width, height, fontSize}) {
 
-    const [clicked, setClicked] = useState(0);
-    const [left, setLeft] = useState(4);
+  const [clicked, setClicked] = useState(0);
+  const [left, setLeft] = useState(4);
 
-    const click = useCallback((index) => {
-        if (index === 0) {
-            setLeft(width / 2 * index + 4);
-        } else {
-            setLeft(width / 2 * index - 4);
-        }
-        setClicked(index);
-    }, []);
+  const click = useCallback((index) => {
+    if (index === 0) {
+      setLeft(width / 2 * index + 4);
+    } else {
+      setLeft(width / 2 * index - 4);
+    }
+    setClicked(index);
+  }, [width]);
 
-    return (
-        <Backboard width={width} height={height}>
-            <Circle width={width} height={height} left={left}/>
-            <Item
-                width={width}
-                height={height}
-                clicked={clicked}
-                keys={0}
-                onClick={() => click(0)}
-                fontSize={fontSize}>기본
-            </Item>
-            <Item
-                width={width}
-                height={height}
-                clicked={clicked}
-                keys={1}
-                onClick={() => click(1)}
-                fontSize={fontSize}>상세
-            </Item>
-        </Backboard>
-    );
+  return (
+    <Backboard width={width} height={height}>
+      <Circle width={width} height={height} left={left}/>
+      <Item
+        width={width}
+        height={height}
+        clicked={clicked}
+        keys={0}
+        onClick={() => click(0)}
+        fontSize={fontSize}>기본
+      </Item>
+      <Item
+        width={width}
+        height={height}
+        clicked={clicked}
+        keys={1}
+        onClick={() => click(1)}
+        fontSize={fontSize}>상세
+      </Item>
+    </Backboard>
+  );
 }
+
+Toggle.propTypes = {
+    width: PropTypes.number,
+    height: PropTypes.number,
+    fontSize: PropTypes.number,
+};
+
+export default Toggle;

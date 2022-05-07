@@ -5,4 +5,4 @@ export const ITEM_LIST = [
     "BATUSD.PERT",
     "LTCUSD.PERT",
     "XRPUSD.PERT"
-]
+];
