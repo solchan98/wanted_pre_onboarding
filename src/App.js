@@ -1,6 +1,7 @@
 import Dropdown from './components/Dropdown';
 import Input from './components/input';
 import Slider from './components/slider';
+import Tab from './components/tab';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Dropdown />
       <Input />
       <Slider />
+      <Tab />
     </div>
   );
 }
